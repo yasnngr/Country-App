@@ -7,9 +7,9 @@ document.querySelector("#btnSearch").addEventListener("click",()=>{
 const getCountry=(country)=>{
     fetch("https://restcountries.com/v3.1/name/"+country)
         .then((response)=>{
-            // if(response.status==404){}//bu şekilde de olur
-            if(!response.ok){//response içinde ok key'i var
-                throw new Error("Ülke Bulunamadı")//throw=> hata oluşturuyoruz
+            // if(response.status==404){}//also
+            if(!response.ok){
+                throw new Error("country not found")
             }
             return response.json()
         })
@@ -18,7 +18,7 @@ const getCountry=(country)=>{
             
             const countries=data[0].borders
             if(!countries){
-                throw new Error("Komşu Ülke Bulunamadı")
+                throw new Error("neighbor country not found")
             }
             
             return fetch("https://restcountries.com/v3.1/alpha?codes="+countries.toString())
